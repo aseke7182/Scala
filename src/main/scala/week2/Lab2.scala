@@ -23,8 +23,12 @@ trait Walks {
 }
 
 
-// Can lab2.Dog only extend from `lab2.Walks`?
-// Try to fix lab2.Dog, so it extends proper traits
+// Can lab2.Dog onlyA calculation may succeed (with an Int result) or fail (with a String message). Implement this.
+
+// extend from `lab2.Walks`?
+// Try to fix lab2.DA calculation may succeed (with an Int result) or fail (with a String message). Implement this.
+
+//og, so it extends proper traits
 // Implement lab2.Dog class so it passes tests
 case class Dog(name: String) extends Walks with Animal {
   override def makeSound(): String = "Whooof"

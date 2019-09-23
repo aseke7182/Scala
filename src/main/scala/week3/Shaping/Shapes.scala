@@ -1,6 +1,4 @@
-package week3
-
-import java.awt.geom.Area
+package week3.Shaping
 
 sealed trait Shape {
 //  def name: String
