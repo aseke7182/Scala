@@ -2,6 +2,7 @@ package week3.TailRecursion
 
 sealed trait IntList {
   def length(): Int = {
+    @scala.annotation.tailrec
     def lengthOfList(node: IntList, cnt: Int): Int = node match {
       case Node( _ , tail ) => lengthOfList(tail,cnt+1)
       case End => cnt
@@ -11,6 +12,7 @@ sealed trait IntList {
   }
 
   def product(): Int = {
+    @scala.annotation.tailrec
     def productOfList(node: IntList, product: Int): Int = node match {
       case Node(head, tail) => productOfList(tail,product * head)
       case End => product
@@ -27,6 +29,13 @@ sealed trait IntList {
     doubleListValue(this)
   }
 
+  def map(f: Int => Int) : IntList = {
+    def DoFunction(node: IntList, f: Int => Int) : IntList = node match {
+      case Node ( head, tail) => Node ( f(head), DoFunction(tail,f))
+      case End => End
+    }
+    DoFunction(this,f)
+  }
 }
 
 case object End extends IntList
@@ -48,5 +57,8 @@ object LinkedList extends App {
   assert(intList.double == Node(1 * 2, Node(2 * 2, Node(3 * 2, Node(4 * 2, End)))))
   assert(intList.tail.double == Node(4, Node(6, Node(8, End))))
   assert(End.double == End)
+
+  assert(intList.map(x => x * 3) == Node(1 * 3, Node(2 * 3, Node(3 * 3, Node(4 * 3, End)))))
+  assert(intList.map(x => 5 - x) == Node(5 - 1, Node(5 - 2, Node(5 - 3, Node(5 - 4, End)))))
 
 }
