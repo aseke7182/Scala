@@ -26,7 +26,7 @@ object lab4 extends App {
   val directors = Seq(eastwood, mcTiernan, nolan, someGuy)
 
   // #1
-  def DirectorsWithFilmsMoreThanNumber (numberOfFilms: Int): Seq[String] = directors.filter( d => d.films.size > numberOfFilms).map( director => director.firstName )
+  def directorsWithFilmsMoreThanNumber (numberOfFilms: Int): Seq[String] = directors.filter( d => d.films.size > numberOfFilms).map( director => director.firstName )
 //  println(DirectorsWithFilmsMoreThanNumber(2))
 
   // #2
@@ -46,7 +46,7 @@ object lab4 extends App {
 //  println(NolanFilms)
 
   // #6
-  def Cinephile(): Seq[String] = directors.map( director =>  director.films.map(film => film.name )).flatten
+  def Cinephile(): Seq[String] = directors.flatMap( director =>  director.films.map(film => film.name ))
 //  println(Cinephile())
 
   // #7
@@ -57,20 +57,20 @@ object lab4 extends App {
 
   // #8
   def HighScoreTable(): Seq[Film] = {
-    var allFilms = new ListBuffer[Film]
-    directors.foreach(director =>  director.films.foreach( film => allFilms+=film  ))
-    allFilms.sortWith((a,b) => a.imdbRating > b.imdbRating).toList
+      directors.flatMap( _.films ).sortBy( film => film.imdbRating)
   }
 //  println(HighScoreTable())
 
   // #9
+  // TODO: flatMap, fold, foldLeft
   def AverageImdbRating(): Double = {
-    var cnt  = 0
     var totalRating = 0.0
-    directors.foreach(directors =>{
-      directors.films.foreach(film => totalRating= totalRating +film.imdbRating)
-      cnt = cnt + directors.films.size
-    })
+    var cnt = 0
+    directors.flatMap(_.films).foreach( film => {
+      totalRating = totalRating + film.imdbRating
+      cnt = cnt + 1
+    }
+    )
     totalRating/cnt
   }
 //  println(AverageImdbRating())
@@ -80,8 +80,8 @@ object lab4 extends App {
 //  TonightListening
 
   // #11
-  def FromTheArchives(dir: Director) : Film ={
-    directors.find(directors=> directors.firstName == dir.firstName).get.films.minBy( film => film.yearOfRelease )
+  def FromTheArchives(dir: Director) ={
+    directors.find(directors=> directors.firstName == dir.firstName).map(_.films.minBy( film => film.yearOfRelease ))
   }
 //  println(FromTheArchives(nolan))
 }
