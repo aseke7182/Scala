@@ -48,7 +48,7 @@ class MovieManager extends Actor with ActorLogging {
       case UpdateMovie(movie) => {
         movies.get(movie.id) match  {
           case Some(existingMovie) =>
-            movies = movies.filter( _._1 != existingMovie.id ) + (movie.id -> movie)
+            movies = movies + (movie.id -> movie)
             sender() ! SuccessfulResponse(201,s"Movie with ID: ${movie.id} updated.")
 
           case None =>
@@ -59,7 +59,8 @@ class MovieManager extends Actor with ActorLogging {
       case DeleteMovie(id) => {}
       movies.get(id) match  {
         case Some(existingMovie) =>
-          movies = movies.filter( _._1 != existingMovie.id )
+          movies = movies.filter( _._1 != existingMovie.id)
+          movies = movies - id
           sender() ! SuccessfulResponse(206, s"Movie with ID: ${id} deleted.")
 
         case None =>
