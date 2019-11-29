@@ -57,10 +57,10 @@ class MovieManager extends Actor with ActorLogging {
       movies.get(movie.id) match  {
         case Some(existingMovie) =>
           movies = movies + (movie.id -> movie)
-          sender() ! Right(SuccessfulResponse(201,s"Movie with ID: ${movie.id} updated."))
+          sender() ! Right(SuccessfulResponse(200,s"Movie with ID: ${movie.id} updated."))
 
         case None =>
-          sender() ! Left(ErrorResponse(409, s"Movie with ID: ${movie.id} does not exists."))
+          sender() ! Left(ErrorResponse(404, s"Movie with ID: ${movie.id} does not exists."))
       }
     }
 
@@ -72,7 +72,7 @@ class MovieManager extends Actor with ActorLogging {
           sender() ! Right(SuccessfulResponse(206, s"Movie with ID: ${id} deleted."))
 
         case None =>
-          sender() ! Left(ErrorResponse(409, s"Movie with ID: ${id} does not exists."))
+          sender() ! Left(ErrorResponse(404, s"Movie with ID: ${id} does not exists."))
       }
   }
 }
