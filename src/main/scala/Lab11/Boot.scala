@@ -35,8 +35,6 @@ object Boot extends App with SprayJsonSerializer {
   val clientRegion = Regions.EU_CENTRAL_1
 
   val credentials = new BasicAWSCredentials("a","b" )
-  //AKIA45RMTPTN2RCBG4VO
-  // QacdXT11RtQGTAygp6wbhv4GGdbZscC/WgdJwaeu
   val client: AmazonS3 = AmazonS3ClientBuilder.standard()
     .withCredentials(new AWSStaticCredentialsProvider(credentials))
     .withRegion(clientRegion)

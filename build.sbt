@@ -22,5 +22,16 @@ libraryDependencies ++= Seq(
 
   // AWS SDK
   "com.amazonaws" % "aws-java-sdk-s3" % "1.11.670",
-  "com.github.pathikrit" %% "better-files" % "3.8.0"
+  "com.github.pathikrit" %% "better-files" % "3.8.0",
+
+  "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+  "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
+  "com.typesafe.akka" %% "akka-slf4j"   % akkaVersion,
+  "ch.qos.logback"    % "logback-classic" % "1.2.3",
+  "com.typesafe.akka" %% "akka-http"   % "10.1.10",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.10",
+  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+  // AWS SDK
+  "com.amazonaws" % "aws-java-sdk-s3" % "1.11.670",
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test
 )
