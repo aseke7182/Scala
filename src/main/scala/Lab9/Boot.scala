@@ -26,7 +26,7 @@ object  Boot extends App with SprayJsonSerializer {
   implicit val timeout: Timeout = Timeout(10.seconds)
   val laptopManager = system.actorOf(LaptopManager.props(),"laptop-manager")
 
-  val token = "904154954:AAGp_G3BWJAdCWKIbRinAqxloUSewH_v6d4"
+  val token = ""
   val log = LoggerFactory.getLogger("Boot")
   log.info(s"Token: ${token}")
 
