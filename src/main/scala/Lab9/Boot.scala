@@ -26,12 +26,12 @@ object  Boot extends App with SprayJsonSerializer {
   implicit val timeout: Timeout = Timeout(10.seconds)
   val laptopManager = system.actorOf(LaptopManager.props(),"laptop-manager")
 
-  val token = "token"
+  val token = "904154954:AAGp_G3BWJAdCWKIbRinAqxloUSewH_v6d4"
   val log = LoggerFactory.getLogger("Boot")
   log.info(s"Token: ${token}")
 
   def SendMessage(msg: String): Unit ={
-    val message: TelegramMessage = TelegramMessage(-352088280, msg)
+    val message: TelegramMessage = TelegramMessage(-286431991, msg)
 
     val httpReq = Marshal(message).to[RequestEntity].flatMap { entity =>
       val request = HttpRequest(HttpMethods.POST, s"https://api.telegram.org/bot${token}/sendMessage", Nil, entity)

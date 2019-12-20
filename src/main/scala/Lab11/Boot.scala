@@ -6,7 +6,7 @@ import akka.pattern.ask
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-import akka.actor.ActorSystem
+import akka.actor.{ActorRef, ActorSystem}
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import com.amazonaws.auth.{AWSStaticCredentialsProvider, BasicAWSCredentials}
@@ -15,8 +15,8 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.{AmazonS3, AmazonS3ClientBuilder}
 import com.amazonaws.services.s3.model.{GetObjectRequest, ListObjectsV2Request, ListObjectsV2Result, ObjectMetadata, PutObjectRequest}
 import com.sun.corba.se.spi.ior.ObjectKey
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import collection.JavaConverters._
 import Lab11.actors._
 import Lab11.models.{ErrorResponse, SuccessfulResponse}
@@ -43,7 +43,7 @@ object Boot extends App with SprayJsonSerializer {
   val bucketName: String = "task1-kbtu"
   createBucket()
 
-  val actor = system.actorOf(PathManager.props(client,bucketName),"kbtu")
+  val actor: ActorRef = system.actorOf(PathManager.props(client,bucketName),"kbtu")
 
   val route = path("check"){
     get{
